@@ -15,5 +15,6 @@ char    *ft_strdup(const char *s);
 size_t  ft_strlen(const char *s);
 char    *ft_strjoin(char *s1, char *s2);
 char    *ft_substr(char *s, unsigned int start, size_t len);
+void *ft_memcpy(void *dest, const void *src, size_t size);
 
 #endif
