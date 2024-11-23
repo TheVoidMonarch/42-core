@@ -13,7 +13,7 @@ char *ft_substr(char *s, unsigned int start, size_t len) // This is the function
     if (!substr) // in the event the memory allocation went bust,
         return (NULL); // we return NULL, EDGE CASES PEOPLE!!
     i = 0; // index usually starts at 0, maybe not in some cases, depends on what you're doing
-    while (i < len && s[start + 1] != '\0') //begin the loop here, because we're starting from the start index
+    while (i < len && s[start + i] != '\0') //begin the loop here, because we're starting from the start index
     {
         substr[i] = s[start + i]; // here we copy the substring
         i++; // loop again!
@@ -25,25 +25,21 @@ char *ft_substr(char *s, unsigned int start, size_t len) // This is the function
 /*So this part is the ft_substr function.
 It extracts the substring from the string. Exactly what it says on the tin.*/
 
-char    *ft_strdup(const char *s) // This is the function we dig our own hole into because we used in ft_substr.
+char *ft_strdup(const char *s)
 {
-    char *dup; // this is the duplicate string
-    size_t i; // index, bois, index.
+    char *dup; // The duplicate string
+    size_t len = ft_strlen(s); // Get the length of the string
 
-    if (!s) // ALWAYS NULL CHECK
-        return (NULL); // Do it, or you'll regret it.
-    dup = malloc(ft_strlen(s) + 1); // memory allocation, null terminated, because we're not savages.
-    if (!dup) // you get the drill by now, right?
-        return (NULL); // return NULL, because we're not savages.
-    i = 0; // again, index usually starts at 0, drill it into your head.
-    while (s[i] != '\0') // Start the loop, because we're copying the string
-    {
-        dup[i] = s[i]; // copy the string
-        i++; // loop again!
-    }
-    dup[i] = '\0'; // null terminator, because we're not savages.
-    return (dup); // return the duplicate string, like civilized people.
-} //18 lines. Suck it , Norminette
+    if (!s) // NULL check
+        return (NULL); // we return stuff because we're nice
+    dup = malloc(len + 1); // Allocate memory for the string + null terminator
+    if (!dup) // Murphy's law, if the memory allocation fails
+        return NULL; // we return NULL
+    ft_memcpy(dup, s, len); // Copy the string into the newly allocated memory
+    dup[len] = '\0'; // Null-terminate the string, since we 're civilized
+    return dup; // return the duplicate string like a good gentleman or gentlewoman.
+}
+
 
 /*So this part is the ft_strdup function.
  it duplicates the string. Exactly what it says in the name.*/
@@ -88,4 +84,27 @@ size_t ft_strlen(const char *s)
     while (s[len] != '\0') // start the loop, because we're counting the string length
         len++; // count them characters, boi!
     return len; // give em the length, dont be stingy.
+} // 10 lines, easy peasy.
+
+/*So this part is the ft_strlen function. It counts the length of the string. No more, no less.*/
+
+void *ft_memcpy(void *dest, const void *src, size_t size)
+{
+    if (dest == NULL || src == NULL) // NULL CHECK, ALWAYS NULL CHECK, ALWAYS.
+        return NULL;// drill it into your head, NULL CHECK, THEN RETURN NULL.
+
+    unsigned char *dst; // destination string
+    const unsigned char *source; // source string
+    size_t i; // index, bois, index.
+
+    i = 0; // index usually starts at 0, drill it INTO YOUR HEAD.
+    dst = (unsigned char *)dest; // cast the destination to unsigned char, WHY? because we're copying bytes.
+    source = (const unsigned char *)src; // cast the source to unsigned char, WHY? because, again, we're copying bytes.
+
+    while (i < size) // loop until we've copied the whole thing
+    {
+        dst[i] = source[i]; // copy the bytes
+        i++; // loop again!
+    }
+    return dest; // return the original destination, because we're not playing games here.
 }
