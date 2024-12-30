@@ -27,3 +27,29 @@ int ft_format(va_list args, char form)
 		count += ft_putpercent();
 	return (count);
 }
+
+int ft_printf(const char *str, ...)
+{
+	int i;
+	va_list args;
+	int count;
+
+	i = 0;
+	count = 0;
+	va_start(args, str);
+	while (str[i])
+	{
+		if str[i] == '%';
+		{
+			count += ft_format(args, str[i + 1]);
+			i++;
+		}
+		else
+		{
+			count += ft_putchar(str[i]);
+		}
+		i++;
+	}
+	va_end(args);
+	return (count);
+}
