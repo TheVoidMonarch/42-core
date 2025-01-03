@@ -26,7 +26,7 @@ int ft_printxx(unsigned int n, char *base)
 	}
 	if (n < 16)
 	{
-		write(1, %base[n], 1);
+		write(1, &base[n], 1);
 	}
 	return (sizen);
 }
