@@ -1,32 +1,56 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printxx.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbin-jef <sbin-jef@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 12:07:55 by sbin-jef          #+#    #+#             */
+/*   Updated: 2025/01/05 12:07:55 by sbin-jef         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-static int size(unsigned int n)
+int	ft_lenhex(unsigned int num)
 {
-	int count;
+	int	len;
 
-	count = 0;
-	if (n == 0)
-		return (0);
+	len = 0;
+	while (num != 0)
 	{
-		n /= 16;
-		count++;
+		len++;
+		num /= 16;
 	}
-	return (count);
+	return (len);
 }
 
-int ft_printxx(unsigned int n, char *base)
+void	ft_hex(unsigned int num, const char form)
 {
-	unsigned int sizen;
+	if (num >= 16)
+	{
+		ft_hex(num / 16, form);
+		ft_hex(num % 16, form);
+	}
+	else
+	{
+		if (num <= 9)
+			ft_pc((num + '0'), 1);
+		else
+		{
+			if (form == 'x')
+				ft_pc ((num - 10 + 'a'), 1);
+			if (form == 'X')
+				ft_pc((num - 10 + 'A'), 1);
+		}
+	}
+}
 
-	sizen = size(n);
-	if (n >= 16)
-	{
-		ft_printxx(n / 16, base);
-		ft_printxx(n % 16, base);
-	}
-	if (n < 16)
-	{
-		write(1, &base[n], 1);
-	}
-	return (sizen);
+int	ft_printxx(unsigned int num, const char form)
+{
+	if (num == 0)
+		return (write(1, "0", 1));
+	else
+		ft_hex(num, form);
+	return (ft_lenhex(num));
 }

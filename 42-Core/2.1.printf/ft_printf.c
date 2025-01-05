@@ -1,8 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sbin-jef <sbin-jef@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/05 12:15:26 by sbin-jef          #+#    #+#             */
+/*   Updated: 2025/01/05 12:15:26 by sbin-jef         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
-int ft_format(va_list args, char form)
+void	ft_pc(char c, int fd)
 {
-	int count;
+	write(fd, &c, 1);
+}
+
+int	ft_format(va_list args, char form)
+{
+	int	count;
 
 	count = 0;
 	if (form == 'c')
@@ -14,23 +31,21 @@ int ft_format(va_list args, char form)
 	else if (form == 'u')
 		count += ft_printu(va_arg(args, unsigned int));
 	else if (form == 'p')
-		count += ft_printp(va_arg(args, int *));
+		count += ft_printp(va_arg(args, unsigned long long));
 	else if (form == 'x' || form == 'X')
-	{
-		 char *base = (form == 'x') ? "0123456789abcdef" : "0123456789ABCDEF";
-        count += ft_printxx(va_arg(args, unsigned int), base);
-	}
+		count += ft_printxx(va_arg(args, unsigned int), form);
 	else if (form == '%')
 		count += ft_printc('%');
 	return (count);
 }
 
-int ft_printf(const char *str, ...)
+
+int	ft_printf(const char *str, ...)
 
 {
-	int i;
-	va_list args;
-	int count;
+	int		i;
+	va_list	args;
+	int		count;
 
 	i = 0;
 	count = 0;
