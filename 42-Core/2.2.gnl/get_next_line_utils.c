@@ -50,25 +50,25 @@ char	*ft_substr(char *s, size_t start, size_t len)
 	sub[i] = '\0';
 	return (sub);
 }
-// Helper: Extracts a substring (line until '\n')
-char	*ft_substr(char *s, size_t start, size_t len)
+char	*ft_strchr(const char *string, int chr )
 {
-	char	*sub;
-	size_t	i;
+	char	*str;
 
-	if (!s)
+	str = (char *)string;
+	while (*str != chr && *str != 0)
+		str++;
+	if (*str == chr)
+		return (str);
+	else
 		return (NULL);
-	if (ft_strlen(s) < start)
-		len = 0;
-	sub = (char *)malloc(len + 1);
-	if (!sub)
-		return (NULL);
+}
+
+size_t	ft_strlen(const char *str)
+{
+	int	i;
+
 	i = 0;
-	while (i < len && s[start + i])
-	{
-		sub[i] = s[start + i];
+	while (str[i] != '\0')
 		i++;
-	}
-	sub[i] = '\0';
-	return (sub);
+	return (i);
 }
