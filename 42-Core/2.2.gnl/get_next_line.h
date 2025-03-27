@@ -12,8 +12,8 @@
 char	*get_next_line(int fd);
 
 // Utils
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
+size_t	ft_strlen(const char *str);
+char	*ft_strchr(const char *string, int chr);
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, size_t start, size_t len);
 
