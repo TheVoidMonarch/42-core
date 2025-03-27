@@ -50,33 +50,6 @@ char	*ft_substr(char *s, size_t start, size_t len)
 	sub[i] = '\0';
 	return (sub);
 }
-
-// Core logic: Reads from fd and builds the full buffer
-static char	*read_to_buffer(int fd, char *buffer)
-{
-	char	*chunk;
-	int		bytes_read;
-
-	chunk = malloc(BUFFER_SIZE + 1);
-	if (!chunk)
-		return (NULL);
-	bytes_read = 1;
-	while (!ft_strchr(buffer, '\n') && bytes_read > 0)
-	{
-		bytes_read = read(fd, chunk, BUFFER_SIZE);
-		if (bytes_read == -1)
-		{
-			free(chunk);
-			return (NULL);
-		}
-		chunk[bytes_read] = '\0';
-		buffer = ft_strjoin(buffer, chunk);
-	}
-	free(chunk);
-	return (buffer);
-}
-
-
 // Helper: Extracts a substring (line until '\n')
 char	*ft_substr(char *s, size_t start, size_t len)
 {
